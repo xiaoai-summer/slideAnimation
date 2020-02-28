@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!--channel-->
+    <color name="channel_vertical_divider">#0cffffff</color>
+    <color name="channel_playing_color">#800084ff</color>
+    <color name="channel_normal_text_color">@color/white_40</color>
+    <color name="channel_readed_text_color">@color/white_30</color>
+    <color name="channel_tip_text_color">@color/white_30</color>
+    <color name="channel_floating_menu_text_color">@color/white_30</color>
+    <color name="channel_focus_text_color">#ffffff</color>
+
+    <!--video-->
+    <color name="video_focus_title_color">@color/white_100</color>
+    <color name="video_playing_title_color">#0084ff</color>
+    <color name="video_readed_title_color">@color/white_50</color>
+    <color name="video_normal_title_color">@color/white_70</color>
+    <color name="video_focus_time_color">@color/white_70</color>
+    <color name="video_playing_time_color">#0084ff</color>
+    <color name="video_readed_time_color">@color/white_30</color>
+    <color name="video_normal_time_color">@color/white_40</color>
+
+    <color name="shopping_focus_text_color">#0084ff</color>
+    <color name="shopping_normal_text_color">@color/white_70</color>
+    <color name="shopping_readed_text_color">@color/white_40</color>
+
+    <color name="white_100">#ffffffff</color>
+    <color name="white_90">#e6ffffff</color>
+    <color name="white_80">#ccffffff</color>
+    <color name="white_70">#b3ffffff</color>
+    <color name="white_60">#99ffffff</color>
+    <color name="white_50">#7fffffff</color>
+    <color name="white_40">#66ffffff</color>
+    <color name="white_30">#4effffff</color>
+    <color name="white_25">#3fffffff</color>
+    <color name="white_20">#33ffffff</color>
+    <color name="white_15">#27ffffff</color>
+    <color name="white_10">#19ffffff</color>
+    <color name="white_6">#0fffffff</color>
+    <color name="white_5">#0dffffff</color>
+    <color name="white_3">#08ffffff</color>
+    <color name="white_2">#05ffffff</color>
+
+    <color name="black_10">#19000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_30">#4e000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_50">#7f000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_70">#b3000000</color>
+    <color name="black_80">#cc000000</color>
+    <color name="black_90">#e6000000</color>
+
+    <color name="yellow_50">#7fffcc00</color>
+    <color name="var_speed_item_defualt">#e6000000</color>
+    <color name="var_speed_default_bg">#030303</color>
+
+    <color name="tv_shop_price">#f45f05</color>
+    <color name="tv_shop_subtitle">#6e6e6e</color>
+    <color name="item_bottom_bar_bg">#b3000000</color>
+    <color name="item_rec_bg">#1Fffffff</color>
+    <color name="app_background">#000000</color>
+    <color name="shopping_default_bg">#44396c</color>
+</resources>

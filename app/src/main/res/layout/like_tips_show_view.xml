@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="326dp"
+    android:layout_height="85dp"
+    android:background="@drawable/bg"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="256dp"
+        android:layout_height="24dp"
+        android:text="来这里标记您喜欢的视频吧 ~"
+        android:textColor="@color/white_80"
+        android:textSize="18sp"></TextView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按"
+            android:textColor="@color/white_90"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="【菜单键】-【我的喜欢】"
+            android:textColor="#FFFFFFFF"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看您喜欢的视频"
+            android:textColor="@color/white_90"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>
