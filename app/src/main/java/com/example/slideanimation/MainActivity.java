@@ -31,6 +31,19 @@ public class MainActivity extends AppCompatActivity {
         mTextAni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 *
+                 * Android 属性动画框架 ObjectAnimator、ValueAnimator
+                 *
+                 *
+                 * ObjectAnimator 实现四大动画框架：
+                 *
+                 * alpha
+                 * scaleX/scaleY
+                 * translateX/translateY
+                 * rotation
+                 *
+                 */
                 //将一个TextView在5秒中内从常规变换成全透明，再从全透明变换成常规
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(mTextAni,"alpha",1f,0f,1f);
 //                animator.setDuration(5000);
@@ -56,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
 //                animSet.play(rotate).with(fadeInOut).after(moveIn);
 //                animSet.setDuration(5000);
 //                animSet.start();
+
+                //补间动画
+                /**
+                 * view动画也称为补间动画，因为我们只需要拿到一个view，设定它开始和结束的位置，中间的view会自动由系统补齐，而不需要帧动画每一幅图都是提前准备好的。
+                 */
                 //translation 平移动画
                 Animation translateAnimation = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_SELF, 0.0f, TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
                         TranslateAnimation.RELATIVE_TO_SELF, 1.0f, TranslateAnimation.RELATIVE_TO_SELF, 0.0f);

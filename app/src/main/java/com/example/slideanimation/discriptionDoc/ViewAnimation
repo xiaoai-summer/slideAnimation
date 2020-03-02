@@ -1,0 +1,246 @@
+2、View动画（也称补间动画）
+2.1 View动画的基本介绍
+view动画也称为补间动画，因为我们只需要拿到一个view，设定它开始和结束的位置，中间的view会自动由系统补齐，而不需要帧动画每一幅图都是提前准备好的。
+
+View动画是Android一开始就提供的比较原始的动画，主要支持四种效果：平移、缩放、旋转、透明度变化（渐变） 四种基本效果，我们可以再这四种基础效果的基础上，选择其中的几种进行组合。
+
+View动画的四种基本效果对应了四个Animation的子类，如下：
+RotateAnimation 、TranslateAnimation 、AlphaAnimation 、ScaleAnimation
+
+比如创建一个平移动画translate_animation.xml， 也是需要把xml文件放在res/anim目录下：
+
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="100"
+    android:fromYDelta="0"
+    android:toXDelta="0"
+    android:toYDelta="0"/>
+
+scale_animation.xml :
+
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:fromXScale="0.0"
+    android:fromYScale="0.0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toXScale="1.0"
+    android:toYScale="1.0"/>
+
+pivotX和pivotY表示以缩放中心的位置。
+
+rotate_animation.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+      android:fromDegree="0"
+      android:toDegree="1800"
+      android:pivotX = "50%"
+      android:pivotY="50%"
+      android:duration = "3000"
+/>
+
+渐变动画alpha_animation.xml：
+
+<?xml version="1.0" encoding="utf-8"?>
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:fromAlpha="1.0"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toAlpha="0.0" />
+
+interpolator表示动画插值器， 可以控制动画的变化速率， 比如前200ms很慢，中间600ms很快，最后200ms又很慢。
+
+pivot 这个属性主要是在translate 和 scale 动画中，这两种动画都牵扯到view 的“物理位置“发生变化，所以需要一个参考点。 而pivotX和pivotY就共同决定了这个点；它的值可以是float或者是百分比数值。
+以 pivotX 为例，说明其取不同的值的含义：
+
+10:距离动画所在view自身左边缘10像素
+10% :距离动画所在view自身左边缘 的距离是整个view宽度的10%
+10%p:距离动画所在view父控件左边缘的距离是整个view宽度的10%
+除了用xml来设置View动画，也可以用代码直接搞定，如
+
+Animation translateAnimation = new TranslateAnimation(0，500，0，500);
+    // 创建平移动画的对象：平移动画对应的Animation子类为TranslateAnimation
+    // 参数分别是：
+    // 1. fromXDelta ：视图在水平方向x 移动的起始值
+    // 2. toXDelta ：视图在水平方向x 移动的结束值
+    // 3. fromYDelta ：视图在竖直方向y 移动的起始值
+    // 4. toYDelta：视图在竖直方向y 移动的结束值
+    translateAnimation.setDuration(3000);
+    // 播放动画直接 startAnimation(translateAnimation)
+    //如：
+    mButton.startAnimation(translateAnimation);
+
+其他几个动画也类似，就不一一例举，看构造方法即可。
+
+2.2 View动画的组合动画–AnimationSet
+我们可以使用AnimationSet把View动画的平移、缩放、旋转、渐变都揉在一起，也是既能通过代码实现，也可以通过xml实现
+
+xml实现：
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+ android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    >
+    <scale
+        android:duration="3000"
+        android:fromXScale="0.0"
+        android:fromYScale="0.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0"/>
+    <alpha
+        android:duration="3000"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.5" />
+    <rotate
+        android:fromDegrees="0"
+        android:toDegrees="720"
+        android:pivotX = "50%"
+        android:pivotY="50%"
+        android:duration = "3000"
+        />
+    <translate
+        android:fromXDelta="0"
+        android:toXDelta="100"
+        android:fromYDelta="0"
+        android:toYDelta="100" />
+</set>
+
+代码实现：
+
+AnimationSet setAnimation = new AnimationSet(true);
+    // 特别说明以下情况
+    // 因为在下面的旋转动画设置了无限循环(RepeatCount = INFINITE)
+    // 所以动画不会结束，而是无限循环
+    // 所以组合动画的下面两行设置是无效的， 以后设置的为准
+    setAnimation.setRepeatMode(Animation.RESTART);
+    setAnimation.setRepeatCount(1);// 设置了循环一次,但无效
+
+    // 旋转动画
+    Animation rotate = new RotateAnimation(0,360,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+    rotate.setDuration(1000);
+    rotate.setRepeatMode(Animation.RESTART);
+    rotate.setRepeatCount(Animation.INFINITE);
+
+    // 平移动画
+    Animation translate = new TranslateAnimation(TranslateAnimation.RELATIVE_TO_PARENT,-0.5f,
+            TranslateAnimation.RELATIVE_TO_PARENT,0.5f,
+            TranslateAnimation.RELATIVE_TO_SELF,0
+            ,TranslateAnimation.RELATIVE_TO_SELF,0);
+    translate.setDuration(10000);
+
+    // 透明度动画
+    Animation alpha = new AlphaAnimation(1,0);
+    alpha.setDuration(3000);
+    alpha.setStartOffset(7000);
+
+    // 缩放动画
+    Animation scale1 = new ScaleAnimation(1,0.5f,1,0.5f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+    scale1.setDuration(1000);
+    scale1.setStartOffset(4000);
+
+    // 将创建的子动画添加到组合动画里
+    setAnimation.addAnimation(alpha);
+    setAnimation.addAnimation(rotate);
+    setAnimation.addAnimation(translate);
+    setAnimation.addAnimation(scale1);
+    // 使用
+    mButton.startAnimation(setAnimation);
+
+2.3 View动画的使用场景
+场景一：LayoutAnimation
+LayoutAnimation作用于ViewGroup，为ViewGroup指定一个动画，然后，当它的子元素出场时都会具有这种效果。这种效果常用与ListView，有的ListView的每个item都以一定的动画形式出现，就是用到的LayoutAnimation。
+
+LayoutAnimation也是一个View动画， 使用方式有三步：
+
+1、定义LayoutAnimation的xml文件；
+2、指定具体的入场动画；
+3、为ViewGroup指定android:layoutAnimation属性，引用这个LayoutAnimation的xml文件；
+第一步，定义LayoutAnimation的xml文件：
+
+// res/anim/anim_layout.xml
+<layoutAnimation
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:delay="0.5"
+	android:animationOrder="normal"
+	android:animation="@anim/anim_item"/>
+
+其中animationOrder有三种选项： normal、reverse、random。
+
+第二步，指定具体动画，也就是第一步中引用的anim_item：
+
+// res/anim/anim_item.xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:duration="300"
+	android:interpolator="@android:anim/accelerate_interpolator"
+	android:shareInterpolator="true" >
+	<alpha
+	android:fromAlpha="0.0"
+	android:toAlpha="1.0" />
+	<translate
+	android:fromXDelta="500"
+	android:toXDelta="0" />
+</set>
+
+第三步，为ViewGroup指定android:layoutAnimation属性：
+
+<ListView
+	android:id="@+id/list"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layoutAnimation="@anim/anim_layout"
+	android:background="#fff4f7f9"
+	android:cacheColorHint="#00000000"
+	android:divider="#dddbdb"
+	android:dividerHeight="1.0px"
+	android:listSelector="@android:color/transparent" />
+
+这样，ListView的每个item都具有了动画效果。
+
+除了用xml文件，也同样可以使用代码实现， 代码需要用到LayoutAnimationController：
+
+ListView listView = (ListView) layout.findViewById(R.id.list);
+Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_
+item);
+LayoutAnimationController controller = new LayoutAnimationController
+(animation);
+controller.setDelay(0.5f);
+controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+listView.setLayoutAnimation(controller);
+
+2.4动画的监听
+Animation.addListener(new AnimatorListener() {
+      @Override
+      public void onAnimationStart(Animation animation) {
+          //动画开始时执行
+      }
+
+       @Override
+      public void onAnimationRepeat(Animation animation) {
+          //动画重复时执行
+      }
+
+     @Override
+      public void onAnimationCancel()(Animation animation) {
+          //动画取消时执行
+      }
+
+      @Override
+      public void onAnimationEnd(Animation animation) {
+          //动画结束时执行
+      }
+  });
+
+
+场景二：Activity的切换效果
+Activity有默认的切换效果，但是我们可以定制，主要用到overridePendingTransition（int enterAnima, int exitAnima）这个方法：
+
+Intent intent = new Intent(this,TestActivity.class);
+startActivity(intent);
+overridePendingTransition(R.anim.enter_anim,R.anim.exit_anim);
+
+注意， 这个方法必须在startActivity或者finish方法之后调用才会生效。

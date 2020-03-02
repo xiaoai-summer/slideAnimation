@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#dbfe">
+
+    <TextView
+        android:id="@+id/text"
+        android:paddingTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:text="HELLO SLIDE"
+        android:visibility="gone"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#adbc"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/open_slide_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open click!"></Button>
+
+        <Button
+            android:id="@+id/close_slide_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="close click!"></Button>
+    </LinearLayout>
+</LinearLayout>
